@@ -18,3 +18,14 @@ def create_product(db: Session, product: ProductSchema):
 
 def get_all_products(db: Session):
     return db.query(Product).all()
+
+
+def get_one_product(id, db: Session):
+    product = db.query(Product).filter_by(
+        id=id
+    ).one_or_none()
+    if not product:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Product Not Found"
+        )
+    return product

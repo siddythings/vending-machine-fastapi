@@ -16,3 +16,8 @@ def create(product: ProductSchema, db: Session = Depends(get_db)):
 @product_router.get("/list/all", status_code=status.HTTP_200_OK, response_model=List[ProductSchema])
 def get(db: Session = Depends(get_db)):
     return product_services.get_all_products(db)
+
+
+@product_router.get("/get/{id}", status_code=status.HTTP_200_OK, response_model=ProductSchema)
+def get_product(id, db: Session = Depends(get_db)):
+    return product_services.get_one_product(db=db, id=id)
