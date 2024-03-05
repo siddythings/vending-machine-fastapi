@@ -57,3 +57,10 @@ def user_update(id, user: User, db: Session):
     db.query(User).filter_by(id=id).update(update_query)
     db.commit()
     return db.query(User).filter_by(id=id).one()
+
+
+def user_delete(id, db: Session):
+    get_user_by_id(db, id)
+    db.query(User).filter_by(id=id).delete()
+    db.commit()
+    return HTTPException(status_code=status.HTTP_202_ACCEPTED, detail="User Deleted")

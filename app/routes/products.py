@@ -29,5 +29,5 @@ def update_product(id, product: ProductSchema, db: Session = Depends(get_db)):
 
 
 @product_router.delete("/delete/{id}", status_code=status.HTTP_202_ACCEPTED)
-def delete_post(id, db: Session = Depends(get_db)):
+def delete_product(id, db: Session = Depends(get_db)):
     return product_services.product_delete(id=id, db=db)

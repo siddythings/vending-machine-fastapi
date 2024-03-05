@@ -26,3 +26,8 @@ def get_all_user(db: Session = Depends(get_db)):
 @user_router.patch("/update/{id}", status_code=status.HTTP_200_OK, response_model=UserSchema)
 def update_product(id, user: UserSchema, db: Session = Depends(get_db)):
     return user_services.user_update(id=id, user=user, db=db)
+
+
+@user_router.delete("/delete/{id}", status_code=status.HTTP_202_ACCEPTED)
+def delete_user(id, db: Session = Depends(get_db)):
+    return user_services.user_delete(id=id, db=db)
