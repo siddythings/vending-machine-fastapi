@@ -21,3 +21,8 @@ def get(id, db: Session = Depends(get_db)):
 @user_router.get("/list/all", status_code=status.HTTP_200_OK, response_model=List[UserSchema])
 def get_all_user(db: Session = Depends(get_db)):
     return user_services.get_all_users(db=db)
+
+
+@user_router.patch("/update/{id}", status_code=status.HTTP_200_OK, response_model=UserSchema)
+def update_product(id, user: UserSchema, db: Session = Depends(get_db)):
+    return user_services.user_update(id=id, user=user, db=db)

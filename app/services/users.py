@@ -33,10 +33,27 @@ def get_user_by_id(db: Session, id):
     ).one_or_none()
     if not db_user:
         raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT, detail="Username already exists"
+            status_code=status.HTTP_404_NOT_FOUND, detail="User Not Found"
         )
     return db_user
 
 
 def get_all_users(db: Session):
     return db.query(User).all()
+
+
+def user_update(id, user: User, db: Session):
+    user_details = get_user_by_id(db, id)
+    is_username_available = get_user_by_username(db=db, user=user)
+    if is_username_available and user_details.username != user.username:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Username not available to use, pick another"
+        )
+
+    update_query = {
+        User.role: user.role,
+        User.username: user.username
+    }
+    db.query(User).filter_by(id=id).update(update_query)
+    db.commit()
+    return db.query(User).filter_by(id=id).one()
