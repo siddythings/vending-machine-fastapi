@@ -5,7 +5,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
-class User(BaseModel):
+class UserSchema(BaseModel):
     id: Optional[int] = None
     username: str
     role: str
