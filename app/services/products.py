@@ -14,3 +14,7 @@ def create_product(db: Session, product: ProductSchema):
     db.commit()
     db.refresh(db_product)
     return db_product
+
+
+def get_all_products(db: Session):
+    return db.query(Product).all()
