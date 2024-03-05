@@ -42,3 +42,10 @@ def product_update(id, product: ProductSchema, db: Session):
     db.query(Product).filter_by(id=id).update(update_query)
     db.commit()
     return db.query(Product).filter_by(id=id).one()
+
+
+def product_delete(id, db: Session):
+    get_one_product(id, db)
+    db.query(Product).filter_by(id=id).delete()
+    db.commit()
+    return HTTPException(status_code=status.HTTP_202_ACCEPTED, detail="Product Deleted")
