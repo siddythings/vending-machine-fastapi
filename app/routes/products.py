@@ -21,3 +21,8 @@ def get(db: Session = Depends(get_db)):
 @product_router.get("/get/{id}", status_code=status.HTTP_200_OK, response_model=ProductSchema)
 def get_product(id, db: Session = Depends(get_db)):
     return product_services.get_one_product(db=db, id=id)
+
+
+@product_router.patch("/update/{id}", status_code=status.HTTP_200_OK, response_model=ProductSchema)
+def update_product(id, product: ProductSchema, db: Session = Depends(get_db)):
+    return product_services.product_update(id=id, product=product, db=db)

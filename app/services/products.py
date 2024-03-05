@@ -29,3 +29,16 @@ def get_one_product(id, db: Session):
             status_code=status.HTTP_404_NOT_FOUND, detail="Product Not Found"
         )
     return product
+
+
+def product_update(id, product: ProductSchema, db: Session):
+    get_one_product(id, db)
+
+    update_query = {
+        Product.name: product.name,
+        Product.price: product.price,
+        Product.seller_id: product.seller_id
+    }
+    db.query(Product).filter_by(id=id).update(update_query)
+    db.commit()
+    return db.query(Product).filter_by(id=id).one()
