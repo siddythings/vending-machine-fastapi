@@ -4,7 +4,7 @@ from app.database.connection import get_db
 from sqlalchemy.orm import Session
 from app.services import products as product_services
 from typing import List
-
+from app.common import request_validator
 product_router = APIRouter(tags=["products"])
 
 
@@ -23,11 +23,13 @@ def get_product(id, db: Session = Depends(get_db)):
     return product_services.get_one_product(db=db, id=id)
 
 
-@product_router.patch("/update/{id}", status_code=status.HTTP_200_OK, response_model=ProductSchema)
+@product_router.put("/update/{id}", status_code=status.HTTP_200_OK, response_model=ProductSchema)
+@request_validator.owner_only
 def update_product(id, product: ProductSchema, db: Session = Depends(get_db)):
     return product_services.product_update(id=id, product=product, db=db)
 
 
 @product_router.delete("/delete/{id}", status_code=status.HTTP_202_ACCEPTED)
+@request_validator.owner_only
 def delete_product(id, db: Session = Depends(get_db)):
     return product_services.product_delete(id=id, db=db)
