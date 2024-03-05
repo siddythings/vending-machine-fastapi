@@ -13,7 +13,7 @@ def create(user: UserSchema, db: Session = Depends(get_db)):
     return user_services.create_user(db, user)
 
 
-@user_router.get("/get_user/{id}", status_code=status.HTTP_200_OK, response_model=UserSchema)
+@user_router.get("/{id}", status_code=status.HTTP_200_OK, response_model=UserSchema)
 def get(id, db: Session = Depends(get_db)):
     return user_services.get_user_by_id(db, id)
 
