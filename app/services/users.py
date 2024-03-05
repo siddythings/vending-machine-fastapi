@@ -36,3 +36,7 @@ def get_user_by_id(db: Session, id):
             status_code=status.HTTP_409_CONFLICT, detail="Username already exists"
         )
     return db_user
+
+
+def get_all_users(db: Session):
+    return db.query(User).all()
