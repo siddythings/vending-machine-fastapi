@@ -10,3 +10,8 @@ user_router = APIRouter(tags=["users"])
 @user_router.post("/create_user", status_code=status.HTTP_201_CREATED, response_model=User)
 def create(user: User, db: Session = Depends(get_db)):
     return create_user(db, user)
+
+
+@user_router.get("/get_user/{id}", status_code=status.HTTP_200_OK, response_model=User)
+def get(id, db: Session = Depends(get_db)):
+    return get_user_by_id(db, id)
