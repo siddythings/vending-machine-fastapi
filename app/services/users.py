@@ -47,7 +47,7 @@ def user_update(id, user: User, db: Session):
     is_username_available = get_user_by_username(db=db, user=user)
     if is_username_available and user_details.username != user.username:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Username not available to use, pick another"
+            status_code=status.HTTP_409_CONFLICT, detail="Username not available to use, pick another"
         )
 
     update_query = {
