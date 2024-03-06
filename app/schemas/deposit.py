@@ -6,8 +6,13 @@ from pydantic import BaseModel
 class DepositSchema(BaseModel):
     id: Optional[int] = None
     user_id: int
-    amount: int
+    amount: Optional[int] = 0
 
     class Config:
         orm_mode = True
         from_attributes = True
+
+
+class ResetDeposit(BaseModel):
+    user_id: int
+    details: str
