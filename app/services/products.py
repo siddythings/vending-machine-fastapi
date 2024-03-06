@@ -2,9 +2,14 @@ from app.models.products import Product
 from app.schemas.products import ProductSchema
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
+from app.common import constants
 
 
 def create_product(db: Session, product: ProductSchema):
+    if product.price % 5 != 0:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Please Select valid Coin e.g 200, 100, 25, 10, 5")
+
     db_product = Product(
         name=product.name,
         price=product.price,

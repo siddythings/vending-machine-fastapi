@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app.schemas.products import ProductSchema
 from app.models.products import Product
 from fastapi import HTTPException, status
+from app.common import constants
 
 
 class ProductModelService:
@@ -9,6 +10,10 @@ class ProductModelService:
         self.db = db
 
     def create(self, product: ProductSchema):
+        if product.price not in constants.ACCEPTABLE_COINS:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, detail="Please Select valid Coin e.g 200, 100, 25, 10, 5")
+
         db_product = Product(
             name=product.name,
             price=product.price,
