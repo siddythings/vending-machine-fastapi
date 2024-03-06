@@ -11,6 +11,7 @@ class DepositSchema(BaseModel):
     class Config:
         orm_mode = True
         from_attributes = True
+        model_validate = True
 
 
 class ResetDeposit(BaseModel):

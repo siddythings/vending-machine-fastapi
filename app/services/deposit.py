@@ -19,7 +19,7 @@ class DepositService:
         return self.deposit_model.create_or_update(deposit=deposit)
 
     def reset_deposit(self, user_id):
-        self.deposit_model.delete_all_deposits_by_user_id(user_id=user_id)
+        self.deposit_model.reset_deposit(user_id=user_id)
 
     def get_deposit(self, user_id):
         depost = self.deposit_model.get(user_id=user_id)
