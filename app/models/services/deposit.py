@@ -12,10 +12,6 @@ class DepositModelService:
     def get(self, user_id):
         depost = self.db.query(Deposit).filter_by(
             user_id=user_id).one_or_none()
-        if not depost:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND, detail="Deposit Not Found Please add first!!"
-            )
         return depost
 
     def create(self, deposit: DepositSchema):

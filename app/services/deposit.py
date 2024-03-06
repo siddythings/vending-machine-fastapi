@@ -22,4 +22,9 @@ class DepositService:
         self.deposit_model.delete_all_deposits_by_user_id(user_id=user_id)
 
     def get_deposit(self, user_id):
-        return self.deposit_model.get(user_id=user_id)
+        depost = self.deposit_model.get(user_id=user_id)
+        if not depost:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Deposit Not Found Please add first!!"
+            )
+        return depost
