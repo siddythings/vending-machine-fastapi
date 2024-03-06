@@ -45,3 +45,11 @@ def buyer_only_purchase(func):
         return func(purchase=purchase, db=db)
 
     return wrapper
+
+
+def buyer_only_with_url_path(user_id, db):
+    user_details = user_services.get_user_by_id(id=user_id, db=db)
+
+    if user_details.role != "buyer":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Sorry!! Buyer only can perform this action")
