@@ -51,3 +51,11 @@ class DepositModelService:
         if current_deposit:
             return self.update(deposit=deposit)
         return self.create(deposit=deposit)
+
+    def reset_deposit(self, user_id):
+        update_query = {
+            Deposit.amount: 0
+        }
+        self.db.query(Deposit).filter_by(
+            user_id=user_id).update(update_query)
+        self.db.commit()
