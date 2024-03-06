@@ -15,4 +15,4 @@ reset_deposit_router = APIRouter(tags=["reset"])
 def reset(deposit, db: Session = Depends(get_db)):
     deposit_service.DepositService(
         db=db).reset_deposit(user_id=deposit.user_id)
-    return ResetDeposit(user_id=id, details="Reset Deposit")
+    return ResetDeposit(user_id=deposit.user_id, details="Reset Deposit")
