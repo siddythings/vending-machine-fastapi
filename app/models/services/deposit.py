@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app.schemas.deposit import DepositSchema
 from app.models.deposit import Deposit
 from sqlalchemy import func
+from fastapi import HTTPException, status
 
 
 class DepositModelService:
@@ -9,7 +10,13 @@ class DepositModelService:
         self.db = db
 
     def get(self, user_id):
-        return self.db.query(Deposit).filter_by(user_id=user_id).one_or_none()
+        depost = self.db.query(Deposit).filter_by(
+            user_id=user_id).one_or_none()
+        if not depost:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Deposit Not Found Please add first!!"
+            )
+        return depost
 
     def create(self, deposit: DepositSchema):
         db_deposit = Deposit(
