@@ -1,0 +1,550 @@
+openapi: 3.0.2
+info:
+  title: FastAPI - Vending Machine
+  version: 0.1.0
+paths:
+  /user/create_user:
+    post:
+      tags:
+        - users
+      summary: Create User
+      operationId: create_user_create_user_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserSchema"
+        required: true
+      responses:
+        "201":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSchema"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /user/{id}:
+    get:
+      tags:
+        - users
+      summary: Get User Details
+      operationId: get_user__id__get
+      parameters:
+        - required: true
+          schema:
+            title: Id
+          name: id
+          in: path
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSchema"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /user/list/all:
+    get:
+      tags:
+        - users
+      summary: Get All User
+      operationId: get_all_user_user_list_all_get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get All User User List All Get
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserSchema"
+  /user/update/{id}:
+    patch:
+      tags:
+        - users
+      summary: Update User By ID
+      operationId: update_product_user_update__id__patch
+      parameters:
+        - required: true
+          schema:
+            title: Id
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserSchema"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSchema"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /user/delete/{id}:
+    delete:
+      tags:
+        - users
+      summary: Delete User By ID
+      operationId: delete_user_user_delete__id__delete
+      parameters:
+        - required: true
+          schema:
+            title: Id
+          name: id
+          in: path
+      responses:
+        "202":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /product/create_product:
+    post:
+      tags:
+        - products
+      summary: Create Product
+      operationId: create_product_create_product_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProductSchema"
+        required: true
+      responses:
+        "201":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductSchema"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /product/list/all:
+    get:
+      tags:
+        - products
+      summary: Get All Products
+      operationId: get_product_list_all_get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get Product List All Get
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductSchema"
+  /product/{id}:
+    get:
+      tags:
+        - products
+      summary: Get Product By ID
+      operationId: get_product_product__id__get
+      parameters:
+        - required: true
+          schema:
+            title: Id
+          name: id
+          in: path
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductSchema"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /product/update/{id}:
+    put:
+      tags:
+        - products
+      summary: Update Product By ID
+      operationId: wrapper_product_update__id__put
+      parameters:
+        - required: true
+          schema:
+            title: Id
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductSchema"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductSchema"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /product/delete/{id}:
+    delete:
+      tags:
+        - products
+      summary: Delete Product By ID
+      operationId: wrapper_product_delete__id__delete
+      parameters:
+        - required: true
+          schema:
+            title: Id
+          name: id
+          in: path
+      responses:
+        "202":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /deposit/:
+    post:
+      tags:
+        - deposit
+      summary: Deposit Amount
+      operationId: wrapper_deposit__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDepositSchema"
+        required: true
+      responses:
+        "201":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DepositSchema"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /deposit/{id}:
+    get:
+      tags:
+        - deposit
+      summary: Get Your Deposit Details By User ID
+      operationId: create_deposit__id__get
+      parameters:
+        - required: true
+          schema:
+            title: Id
+          name: id
+          in: path
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DepositSchema"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /buy/:
+    post:
+      tags:
+        - buy
+      summary: Purchase Products
+      operationId: wrapper_buy__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PurchaseSchema"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PurchaseResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /reset/:
+    post:
+      tags:
+        - reset
+      summary: Reset Your Deposit Amount
+      operationId: wrapper_reset__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResetDepositSchema"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResetDeposit"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /:
+    get:
+      summary: Read Root
+      operationId: read_root__get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    DepositSchema:
+      title: DepositSchema
+      required:
+        - user_id
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        user_id:
+          title: User Id
+          type: integer
+        amount:
+          title: Amount
+          type: integer
+          default: 0
+
+    ResetDepositSchema:
+      title: DepositSchema
+      required:
+        - user_id
+      type: object
+      properties:
+        user_id:
+          title: User Id
+          type: integer
+
+    CreateDepositSchema:
+      title: DepositSchema
+      required:
+        - user_id
+      type: object
+      properties:
+        user_id:
+          title: User Id
+          type: integer
+        amount:
+          title: Amount
+          type: integer
+          default: 0
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationError"
+    ProductSchema:
+      title: ProductSchema
+      required:
+        - name
+        - price
+        - seller_id
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        name:
+          title: Name
+          type: string
+        price:
+          title: Price
+          type: integer
+        seller_id:
+          title: Seller Id
+          type: integer
+    CreateProductSchema:
+      title: ProductSchema
+      required:
+        - name
+        - price
+        - seller_id
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        price:
+          title: Price
+          type: integer
+        seller_id:
+          title: Seller Id
+          type: integer
+
+    PurchaseResponse:
+      title: PurchaseResponse
+      required:
+        - user_id
+        - products_purchased
+        - quantity
+        - total_spent
+        - change
+      type: object
+      properties:
+        user_id:
+          title: User Id
+          type: integer
+        products_purchased:
+          $ref: "#/components/schemas/ProductSchema"
+        quantity:
+          title: Quantity
+          type: integer
+        total_spent:
+          title: Total Spent
+          type: integer
+        change:
+          title: Change
+          type: array
+          items:
+            type: integer
+    PurchaseSchema:
+      title: PurchaseSchema
+      required:
+        - user_id
+        - product_id
+        - quantity
+      type: object
+      properties:
+        user_id:
+          title: User Id
+          type: integer
+        product_id:
+          title: Product Id
+          type: integer
+        quantity:
+          title: Quantity
+          type: integer
+    ResetDeposit:
+      title: ResetDeposit
+      required:
+        - user_id
+        - details
+      type: object
+      properties:
+        user_id:
+          title: User Id
+          type: integer
+        details:
+          title: Details
+          type: string
+    UserSchema:
+      title: UserSchema
+      required:
+        - username
+        - role
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        username:
+          title: Username
+          type: string
+        role:
+          title: Role
+          type: string
+    CreateUserSchema:
+      title: UserSchema
+      required:
+        - username
+        - role
+      type: object
+      properties:
+        username:
+          title: Username
+          type: string
+        role:
+          title: Role
+          type: string
+    ValidationError:
+      title: ValidationError
+      required:
+        - loc
+        - msg
+        - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            type: string
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
