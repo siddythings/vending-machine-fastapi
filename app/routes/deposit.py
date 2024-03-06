@@ -12,3 +12,9 @@ deposit_router = APIRouter(tags=["deposit"])
 @request_validator.buyer_only
 def create(deposit, db: Session = Depends(get_db)):
     return deposit_services.DepositService(db=db).deposit_money(deposit=deposit)
+
+
+@deposit_router.get("/{id}", status_code=status.HTTP_200_OK, response_model=DepositSchema)
+def create(id, db: Session = Depends(get_db)):
+    request_validator.buyer_only_with_url_path(id, db=db)
+    return deposit_services.DepositService(db=db).get_deposit(user_id=id)
