@@ -37,7 +37,7 @@ class PurchaseService:
             total_spent=total_cost,
             products_purchased=ProductSchema.from_orm(product),
             quantity=purchase.quantity,
-            change=self.return_change(user_deposit_balance.amount - total_cost)
+            change=self.return_change(user_deposit_balance.amount)
         )
 
     def return_change(self, balance):
@@ -50,7 +50,6 @@ class PurchaseService:
                     change.append(coin)
                     balance -= coin
                     break
-
         return sorted(change, reverse=True)
 
     def user_current_deposit(self, purchase: PurchaseSchema):
